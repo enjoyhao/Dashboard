@@ -4,9 +4,9 @@
 
 2、Team profile（团队组建与分工）
 
-3、[Investigation（项目前期调研/竞品分析）](https://github.com/money-hub/Dashboard/blob/master/03-investigation.md)
+3、[Investigation（项目前期调研/竞品分析）](03-investigation.md)
 
-4、[Vision（项目愿景）](https://github.com/money-hub/Dashboard/blob/master/04-vision.md)
+4、[Vision（项目愿景）](04-vision.md)
 
 5、Product Backlog（产品特性库）
 
@@ -41,7 +41,7 @@
 
 X1 meeting-records
 
-- [inception meeting (19/03/23)](https://github.com/money-hub/Dashboard/blob/master/X1-meeting-record0.md)
+- [inception meeting (19/03/23)](X1-meeting-record0.md)
 
 X2 [KANBAN](<https://github.com/orgs/money-hub/projects> )
 
