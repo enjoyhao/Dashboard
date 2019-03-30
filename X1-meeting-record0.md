@@ -21,4 +21,4 @@
 
 ### 讨论结果
 
-![Inception Meeting会议记录](Q:\UniversityResources\Courses\Junior\Semester-2\系统分析与设计\project\Dashboard\images\Inception Meeting会议记录.png)
+![Inception Meeting会议记录](https://github.com/money-hub/Dashboard/blob/master/images/Inception%20Meeting%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95.png?raw=true)
