@@ -11,7 +11,7 @@
 
 | 学号     | 昵称       | Github                                  | 岗位角色                     |
 | -------- | ---------- | --------------------------------------- | ---------------------------- |
-|          | LinQingYin | [linqy71](https://github.com/linqy71)   | 项目经理、UI设计师           |
+| 16340142 | LinQingYin | [linqy71](https://github.com/linqy71)   | 项目经理、UI设计师           |
 |          | LinJiaYun  | [Rhyme24](https://github.com/Rhyme24)   | 产品经理、UI设计师           |
 | 16340157 | LiuYaHui   | [yahui liu](https://github.com/liuyh73) | Golang工程师、DevOps工程师   |
 |          | LiuWeiDong | [liuwd8](https://github.com/liuwd8)     | 微信小程序工程师             |
@@ -29,7 +29,7 @@
 
 | 昵称       | 分工内容                                                 | 个人宣言       |
 | ---------- | -------------------------------------------------------- | -------------- |
-| LinQingYin | 项目管理与进度推进、需求分析与功能架构设计、协助前端开发 |                |
+| LinQingYin | 项目管理与进度推进、需求分析与功能架构设计、协助前端开发 |   一入UI深似海     |
 | LinJiaYun  | 负责撰写用例模型等相关文档、需求管理与分析、协助前端开发 |                |
 | LiuYaHui   | 生产环境构建、产品自动化部署、微服务开发                 | 一直重构一直爽 |
 | LiuWeiDong | 前期调研、微信小程序开发                                 |                |
