@@ -1,7 +1,7 @@
 ## 团队与分工
 
-- [团队故事](https://github.com/money-hub/Dashboard/02-team-profile.md#1团队故事)
-- [团队分工](https://github.com/money-hub/Dashboard/02-team-profile.md#2-团队分工)
+- [团队故事](https://github.com/money-hub/Dashboard/blob/master/02-team-profile.md#1团队故事)
+- [团队分工](https://github.com/money-hub/Dashboard/blob/master/02-team-profile.md#2-团队分工)
 
 ### 1、团队故事
 
