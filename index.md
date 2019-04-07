@@ -14,7 +14,7 @@
 
 -  6.1 Usecase Diagram（用例图）
 - 6.2 Use Cases（用例+活动图）
-- 6.3 Domain Models（领域模型）
+- 6.3 [Domain Models（领域模型）](06-03-domain-model.md)
 - 6.4 State Models（状态模型）
 - 6.5 System Sequence Diagrams（功能模型）
 - 6.6 Supplementary Requirements（补充需求）
