@@ -23,6 +23,7 @@
 
 - 7.1 UI design（界面设计）
 - 7.2 Database design（数据库设计）
+  - 7.2.1 [基础系统模型数据库设计](07-02-01-database-design.md)
 - 7.3 Interface API design（接口API设计）
 - 7.4 Architecture design（架构设计）
 - 7.5 Usecase Design（用例设计）
