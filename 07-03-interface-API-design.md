@@ -32,6 +32,9 @@
 |          | GET    | http://localhost:8080/api/users/{userid} |
 |          | POST   | http://localhost:8080/api/users/{userid} |
 |          | DELETE | http://localhost:8080/api/users/{userid} |
+|          | GET    | http://localhost:8080/api/auths          |
+|          | GET    | http://localhost:8080/api/auths/{userid} |
+|          | POST   | http://localhost:8080/api/auths/{userid} |
 
 **公共API：**
 
