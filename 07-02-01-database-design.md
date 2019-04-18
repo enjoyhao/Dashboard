@@ -11,6 +11,7 @@
 > 相应代码
 
 ```mysql
+
 # 创建相应的数据库
 create database if not exists MoneyDodo;
 
@@ -23,10 +24,12 @@ create table if not exists user (
     password varchar(20) not null COMMENT '密码',
     introduction text COMMENT '个人简介',
     balance double COMMENT '余额',
-    icon text COMMENT '头像',
+    icon MEDIUMBLOB COMMENT '头像',
     phone varchar(11) COMMENT '电话号码',
     creditScore int COMMENT '信用分数',
-    email varchar(20) COMMENT '邮箱'
+    email varchar(20) COMMENT '邮箱',
+    cardPic MEDIUMBLOB COMMENT '学生证',
+	identification bool default false COMMENT '认证'
 );
 
 # 管理员
@@ -48,9 +51,9 @@ create table if not exists task (
     taskFrom varchar(20) not null COMMENT '发布者',
     recipient text COMMENT '接收者',
     taskLimit text COMMENT '任务限制',
-    releaseTime text COMMENT '发布时间',
+    releaseTime text not null COMMENT '发布时间',
     cutoffTime text COMMENT '截至时间',
-    rewardAmount double COMMENT '赏金金额',
+    rewardAmount double not null  COMMENT '赏金金额',
     taskStatus varchar(20) COMMENT '任务状态'
 );
 ```
