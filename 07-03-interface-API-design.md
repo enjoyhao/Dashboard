@@ -39,6 +39,7 @@
 |          | DELETE | http://localhost:8080/api/users/{userid} |
 |          | GET    | http://localhost:8080/api/certs          |
 |          | GET    | http://localhost:8080/api/certs/{userid} |
+|          | POST   | http://localhost:8080/api/certs/{userid} |
 
 **公共API：**
 
