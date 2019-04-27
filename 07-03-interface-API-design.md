@@ -17,8 +17,8 @@
 
 | 描述                       | 方法   | API                                                          |
 | -------------------------- | ------ | ------------------------------------------------------------ |
-| 认证（不允许修改、仅一次） | POST   | http://localhost:8080/api/users/{userid}/auth                |
-|                            | GET    | http://locahost:8080/api/users/{userid}/auth                 |
+| 认证（不允许修改、仅一次） | POST   | http://localhost:8080/api/users/{userid}/certs               |
+|                            | GET    | http://locahost:8080/api/users/{userid}/certs                |
 | 个人信息                   | GET    | http://localhost:8080/api/users/{userid}                     |
 |                            | POST   | http://localhost:8080/api/users/{userid}(可去掉)             |
 |                            | PUT    | http://localhost:8080/api/users/{userid}                     |
@@ -37,8 +37,8 @@
 |          | GET    | http://localhost:8080/api/users/{userid} |
 |          | POST   | http://localhost:8080/api/users          |
 |          | DELETE | http://localhost:8080/api/users/{userid} |
-|          | GET    | http://localhost:8080/api/auths          |
-|          | GET    | http://localhost:8080/api/auths/{userid} |
+|          | GET    | http://localhost:8080/api/certs          |
+|          | GET    | http://localhost:8080/api/certs/{userid} |
 
 **公共API：**
 
