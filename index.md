@@ -44,6 +44,7 @@ X1 meeting-records
 
 - [inception meeting (19/03/23)](X1-meeting-record0.md)
 - [iteration-1 meeting(19/03/31)](X1-meeting-record1.md)
+- [iteration-2 meeting(19/04/27)](X1-meeting-record2.md)
 
 X2 [KANBAN](<https://github.com/orgs/money-hub/projects> )
 
