@@ -1,6 +1,10 @@
 # API - RESTful
 
-## 0. 认证服务
+## A. 用户相关
+
+### 1. 登陆服务（authentication）
+
+**BASE_URL=http://localhost:8080/api/auth**
 
 | 描述 | 方法 | API                                   |
 | ---- | ---- | ------------------------------------- |
@@ -9,7 +13,27 @@
 |      | POST | http://localhost:8080/api/auth/firm   |
 | 退出 | GET  | http://localhost:8080/api/auth/logout |
 
-## A. 用户相关
+### 2. 实名认证（certify）
+
+**BASE_URL=http://localhost:8080/api/certs**
+**BASE_URL2=http://localhost:8080/api/users/{userId}/certs**
+
+**用户API：**
+
+| 描述 | 方法 | API                                   |
+| -------------------------- | ------ | ------------------------------------------------------------ |
+| 认证（成功之后不允许修改）   | POST   | http://localhost:8080/api/users/{userId}/certs               |
+|                            | GET    | http://locahost:8080/api/users/{userId}/certs                |
+
+**管理员API：**
+
+| 描述 | 方法 | API                                   |
+| ------------ | ------ | ----------------- |
+|          | GET    | http://localhost:8080/api/certs |
+|          | GET    | http://localhost:8080/api/certs/{userId} |
+|          | POST   | http://localhost:8080/api/certs/{userId} |
+
+### 3. 个人信息（user)
 
 **BASE_URL=http://localhost:8080/api/users**
 
@@ -17,81 +41,181 @@
 
 | 描述                       | 方法   | API                                                          |
 | -------------------------- | ------ | ------------------------------------------------------------ |
-| 认证（不允许修改、仅一次） | POST   | http://localhost:8080/api/users/{userid}/certs               |
-|                            | GET    | http://locahost:8080/api/users/{userid}/certs                |
-| 个人信息                   | GET    | http://localhost:8080/api/users/{userid}                     |
-|                            | POST   | http://localhost:8080/api/users/{userid}(可去掉)             |
-|                            | PUT    | http://localhost:8080/api/users/{userid}                     |
-| 注销                       | DELETE | http://localhost:8080/api/users/{userid}                     |
-| 发布任务                   | POST   | http://localhost:8080/api/users/{userid}/tasks               |
-| 领取任务                   | POST   | http://localhost:8080/api/users/{userid}/tasks/{taskid}      |
-| 取消领取任务               | DELETE | http://localhost:8080/api/users/{userid}/tasks/{taskid}?status=claimed |
-| 删除已完成的任务           | DELETE | http://localhost:8080/api/users/{userid}/tasks/{taskid}?status=finished |
-| 取消发布任务               | DELETE | http://localhost:8080/api/users/{userid}/tasks/{taskid}?status=released |
+| 个人信息                   | GET    | http://localhost:8080/api/users/{userId}                     |
+|                            | PUT    | http://localhost:8080/api/users/{userId}                     |
+| 注销                       | DELETE | http://localhost:8080/api/users/{userId}                     |
 
 **管理员API：**
 
 | 描述     | 方法   | API                                      |
 | -------- | ------ | ---------------------------------------- |
 | 管理用户 | GET    | http://localhost:8080/api/users          |
-|          | GET    | http://localhost:8080/api/users/{userid} |
+|          | GET    | http://localhost:8080/api/users/{userId} |
+|          | GET    | http://localhost:8080/api/users/{username} |
 |          | POST   | http://localhost:8080/api/users          |
-|          | DELETE | http://localhost:8080/api/users/{userid} |
-|          | GET    | http://localhost:8080/api/certs          |
-|          | GET    | http://localhost:8080/api/certs/{userid} |
-|          | POST   | http://localhost:8080/api/certs/{userid} |
-
-**公共API：**
-
-| 描述                   | 方法 | API                                                     |
-| ---------------------- | ---- | ------------------------------------------------------- |
-| 修改任务               | PUT  | http://localhost:8080/api/users/{userid}/tasks/{taskid} |
-| 查询用户发起的某个任务 | GET  | http://localhost:8080/api/users/{userid}/tasks/{taskid} |
-| 查询用户发起的所有任务 | GET  | http://localhost:8080/api/users/{userid}/tasks          |
+|          | DELETE | http://localhost:8080/api/users/{userId} |
 
 ## B. 任务相关
+
+### 4. 用户任务信息（task）
+
+**BASE_URL=http://localhost:8080/api/users/{userId}/tasks**
+
+**用户API：**
+
+| 描述     | 方法   | API                                      |备注|
+| ---------------- | ------ | -------------------------------- | ------- |
+| 查询某个用户发布的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=released | 不需要认证 |
+| 查询和自己相关的所有任务 | GET | http://localhost:8080/api/users/{userId}/tasks | userId为token中的userId |
+| 查询自己未发布的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=non-released| userId为token中的userId |
+| 查询自己接受的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=claimed | userId为token中的userId |
+| 查询自己完成的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=finished| userId为token中的userId |
+
+**管理员API：**
+
+|描述|方法|API|
+| ---------------- | ------ | ----------------------------- |
+| 查询用户发起的所有任务 | GET  | http://localhost:8080/api/users/{userId}/tasks          |
+| 查询正在进行中的任务| GET  | http://localhost:8080/api/users/{userId}/tasks?state=claimed          |
+| 查询已经完成的任务| GET  | http://localhost:8080/api/users/{userId}/tasks?state=finished          |
+| 查询已经发布但是未被领取的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=released|
+| 查询未发的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=non-released|
+
+### 5. 任务交互（cpt)
 
 **BASE_URL=http://localhost:8080/api/tasks**
 
 **用户API：**
 
+| 描述 | 方法 | API | 备注 |
+| ---------------- | ------ | ----------------------------- | --------- |
+| 查询所有任务 | GET | http://localhost:8080/api/tasks | 不需要认证 |
+| 查询某个任务 | GET | http://localhost:8080/api/tasks/{taskId} | 不需要认证 |
+| 创建任务                   | POST   | http://localhost:8080/api/tasks               | |
+| 发布任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}       | |
+| 领取任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}      | |
+| 完成任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}      |发布者和接收者都需要调用此接口来完成任务|
+| 取消领取任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=claimed | |
+| 删除已完成的任务           | DELETE | http://localhost:8080/api/tasks/{taskId}?state=finished | |
+| 取消发布任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=released | |
+
+**管理员API：**
+
+| 描述|方法|API|
+| ---------------- | ------ | ----------------------------- |
+| 查询所有任务 | GET | http://localhost:8080/api/tasks |
+| 查询某个任务 | GET | http://localhost:8080/api/tasks/{taskId} |
+| 查询未发布的任务 | GET | http://localhost:8080/api/tasks?state=non-released|
+| 查询已经发布但是未被领取的任务 | GET | http://localhost:8080/api/tasks?state=released|
+| 查询所有正在进行中的任务 | GET | http://localhost:8080/api/tasks?state=claimed|
+| 查询已经完成的任务| GET  | http://localhost:8080/api/tasks?state=finished          |
+
+
+### 6. 任务评论（comment）
+
+**BASE_URL=http://localhost:8080/api/tasks/{taskId}/comments**
+
+**用户API：**
+
 | 描述             | 方法   | API                                                          |
 | ---------------- | ------ | ------------------------------------------------------------ |
-| 发表评论         | POST   | http://localhost:8080/api/tasks/{userid}/{taskid}/comments   |
-| 更改某条评论     | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid} |
-| 点赞某条评论     | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid}/star |
-| 取消点赞某条评论 | DELETE | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid}/star |
-| 开设issue        | POST   | http://localhost:8080/api/tasks/{userid}/{taskid}/issues     |
-| 更改某个issue    | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}/issues/{iid} |
-| 关闭某个issue    | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}/issues/{iid}/lock |
-| 打开某个issue    | DELETE | http://localhost:8080/api/tasks/{userid}/{taskid}/issues/{iid}/lock |
-| 领取任务         | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}            |
-| 完成任务         | PUT    | http://localhost:8080/api/tasks/{userid}/{taskid}            |
+| 获取某个task的评论 | GET    | http://localhost:8080/api/tasks/{taskId}/comments   |
+| 发表评论         | POST   | http://localhost:8080/api/tasks/{taskId}/comments   |
+| *更改某条评论     | PUT    | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
+| *删除某条评论     | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
+| 点赞某条评论     | PUT    | http://localhost:8080/api/tasks/{taskId}/comments/{cid}/star |
+| 取消点赞某条评论 | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid}/star |
 
-**公共API：**
-
-| 描述                   | 方法   | API                                                          |
-| ---------------------- | ------ | ------------------------------------------------------------ |
-| 获取某个task的评论     | GET    | http://localhost:8080/api/tasks/{userid}/{taskid}/comments   |
-| 获取某个task的某条评论 | GET    | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid} |
-| 删除某条评论           | DELETE | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid} |
-| 获取所有issue          | GET    | http://localhost:8080/api/tasks/{userid}/{taskid}/issues     |
-| 获取某个issue          | GET    | http://localhost:8080/api/tasks/{userid}/{taskid}/issues/{iid} |
-| 删除某个issue          | DELETE | http://localhost:8080/api/tasks/{userid}/{taskid}/issues/{iid} |
-| 查询所有任务           | GET    | http://localhost:8080/api/tasks                              |
-| 查询某个任务           | GET    | http://localhost:8080/api/tasks/{taskid}                     |
-
-**商家API：**
+**管理员API：**
 
 | 描述         | 方法   | API                                                          |
 | ------------ | ------ | ------------------------------------------------------------ |
-| 发表评论     | POST   | http://localhost:8080/api/tasks/{userid}/{taskid}/comments       |
-| 更改某条评论 | PATCH  | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid} |
-| 删除某条评论 | DELETE | http://localhost:8080/api/tasks/{userid}/{taskid}/comments/{cid} |
+| 查看某个task评论     | POST   | http://localhost:8080/api/tasks/{taskId}/comments       |
+| 删除某条评论 | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
 
 ## C. 交易系统
 
-## D. 授权审核系统
+此系统是在双方共同确认完成任务之后，开始进行报酬交易。
+
+### 7. 用户交易信息（deal）
+
+**BASE_URL=http://localhost:8080/api/users/{userId}/deals**
+
+**用户API：**
+
+| 描述 | 方法 | API | 备注 |
+| ----- | ----- | ---- | ------ |
+| 查看用户相关所有交易 | GET | http://localhost:8080/api/users/{userId}/deals | userId为token中的userId |
+| 查看用户某笔交易 | GET | http://localhost:8080/api/users/{userId}/deals/{dId} | userId为token中的userId |
+| 查看正在进行中的交易 | GET | http://localhost:8080/api/users/{userId}/deals?state=underway | userId为token中的userId |
+| 查看所有结束的交易| GET | http://localhost:8080/api/users/{userId}/deals?state=closure | userId为token中的userId |
+| 删除结束的交易 | DELETE | http://localhost:8080/api/users/{userId}/deals/{dId}?state=closure | userId为token中的userId |
+
+**管理员API：**
+
+| 描述 | 方法 | API |
+| ----- | ----- | ---- |
+| 查看用户相关所有交易 | GET | http://localhost:8080/api/users/{userId}/deals |
+| 查看正在进行中的交易 | GET | http://localhost:8080/api/users/{userId}/deals?state=underway |
+| 查看所有结束的交易| GET | http://localhost:8080/api/users/{userId}/deals?state=closure |
+
+### 8. 交易操作（txn）
+
+**BASE_URL=http://localhost:8080/api/deals**
+
+**用户API：**
+
+| 描述 | 方法 | API |
+| ----- | ------ | ------ |
+| 发起交易 | POST | http://localhost:8080/api/deals |
+
+**管理员API：**
+
+| 描述 | 方法 | API |
+| ---- | ---- | ---- |
+| 查看所有交易 | GET | http://localhost:8080/api/deals |
+| 查看某个交易 | GET | http://localhost:8080/api/deals/{dId} |
+| 查看所有尚未完成的交易 | GET | http://localhost:8080/api/deals?state=underway|
+| 查看所有结束的交易 | GET | http://localhost:8080/api/deals?state=closure |
+
+### 9. 充值信息（balance）
+
+**BASE_URL=http://localhost:8080/api/users/{userId}/balances**
+
+**用户APi：**
+
+| 描述 | 方法 | API |
+| ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8080/api/users/{userId}/balances |
+| 查看用户某条充值信息 | GET | http://localhost:8080/api/users/{userId}/balances/{bId} |
+| 删除用户充值信息 | DELETE | http://localhost:8080/api/users/{userId}/balances/{bId} |
+
+**管理员API：**
+
+| 描述 | 方法 | API |
+| ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8080/api/users/{userId}/balances |
+| 查看用户某条充值信息 | GET | http://localhost:8080/api/users/{userId}/balances/{bId} |
+
+### 10. 充值（recharge）
+
+**BASE_URL=http://localhost:8080/api/balances**
+
+**用户API：**
+
+| 描述 | 方法 | API |
+| ---- | --- | ---- |
+| 账户充值 | POST | http://localhost:8080/api/balances |
+
+**管理员API：**
+
+| 描述 | 方法 | API |
+| --- | --- | --- |
+| 查询充值记录 | GET | http://localhost:8080/api/balances |
+| 查询某个充值记录 | GET | http://localhost:8080/api/balances/{bId} |
+
+
+## D. 商家任务审核系统
 
 商家提交任务，经过系统审核方可放置到平台上。
 
