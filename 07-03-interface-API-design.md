@@ -2,7 +2,7 @@
 
 ## A. 用户相关
 
-### 1. 登陆服务（authentication）
+### 1. 登陆服务（authentication）PORT=8001
 
 **BASE_URL=http://localhost:8080/api/auth**
 
@@ -13,7 +13,7 @@
 |      | POST | http://localhost:8080/api/auth/firm   |
 | 退出 | GET  | http://localhost:8080/api/auth/logout |
 
-### 2. 实名认证（certify）
+### 2. 实名认证（certify）PORT=8002
 
 **BASE_URL=http://localhost:8080/api/certs**
 **BASE_URL2=http://localhost:8080/api/users/{userId}/certs**
@@ -29,11 +29,11 @@
 
 | 描述 | 方法 | API                                   |
 | ------------ | ------ | ----------------- |
-|          | GET    | http://localhost:8080/api/certs |
-|          | GET    | http://localhost:8080/api/certs/{userId} |
-|          | POST   | http://localhost:8080/api/certs/{userId} |
+| 查看所有认证信息 | GET    | http://localhost:8080/api/certs |
+| 获取某个用户的认证信息 | GET    | http://localhost:8080/api/certs/{userId} |
+| 通过或者拒绝某个用户的认证信息 | POST   | http://localhost:8080/api/certs/{userId} |
 
-### 3. 个人信息（user)
+### 3. 个人信息（user）PORT=8003
 
 **BASE_URL=http://localhost:8080/api/users**
 
@@ -47,17 +47,17 @@
 
 **管理员API：**
 
-| 描述     | 方法   | API                                      |
-| -------- | ------ | ---------------------------------------- |
-| 管理用户 | GET    | http://localhost:8080/api/users          |
-|          | GET    | http://localhost:8080/api/users/{userId} |
-|          | GET    | http://localhost:8080/api/users/{username} |
-|          | POST   | http://localhost:8080/api/users          |
-|          | DELETE | http://localhost:8080/api/users/{userId} |
+| 描述             | 方法   | API                                        |
+| ---------------- | ------ | ------------------------------------------ |
+| 查询所有用户     | GET    | http://localhost:8080/api/users            |
+| 查询某个用户     | GET    | http://localhost:8080/api/users/{userId}   |
+| 根据名称查询用户 | GET    | http://localhost:8080/api/users/{username} |
+| 创建用户         | POST   | http://localhost:8080/api/users            |
+| 删除用户         | DELETE | http://localhost:8080/api/users/{userId}   |
 
 ## B. 任务相关
 
-### 4. 用户任务信息（task）
+### 4. 用户任务信息（task）PORT=8004
 
 **BASE_URL=http://localhost:8080/api/users/{userId}/tasks**
 
@@ -81,7 +81,7 @@
 | 查询已经发布但是未被领取的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=released|
 | 查询未发的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=non-released|
 
-### 5. 任务交互（cpt)
+### 5. 任务交互（cpt）PORT=8005
 
 **BASE_URL=http://localhost:8080/api/tasks**
 
@@ -92,12 +92,13 @@
 | 查询所有任务 | GET | http://localhost:8080/api/tasks | 不需要认证 |
 | 查询某个任务 | GET | http://localhost:8080/api/tasks/{taskId} | 不需要认证 |
 | 创建任务                   | POST   | http://localhost:8080/api/tasks               | |
-| 发布任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}       | |
-| 领取任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}      | |
-| 完成任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}      |发布者和接收者都需要调用此接口来完成任务|
+| 发布任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=release | |
+| 领取任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=claim | |
+| 完成任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=finish |发布者和接收者都需要调用此接口来完成任务|
 | 取消领取任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=claimed | |
 | 删除已完成的任务           | DELETE | http://localhost:8080/api/tasks/{taskId}?state=finished | |
 | 取消发布任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=released | |
+| 删除未发布的任务 | DELETE | http://localhost:8080/api/tasks/{taskId}?state=non-released | |
 
 **管理员API：**
 
@@ -111,7 +112,7 @@
 | 查询已经完成的任务| GET  | http://localhost:8080/api/tasks?state=finished          |
 
 
-### 6. 任务评论（comment）
+### 6. 任务评论（comment）PORT=8006
 
 **BASE_URL=http://localhost:8080/api/tasks/{taskId}/comments**
 
@@ -137,7 +138,7 @@
 
 此系统是在双方共同确认完成任务之后，开始进行报酬交易。
 
-### 7. 用户交易信息（deal）
+### 7. 用户交易信息（deal）PORT=8007
 
 **BASE_URL=http://localhost:8080/api/users/{userId}/deals**
 
@@ -159,7 +160,7 @@
 | 查看正在进行中的交易 | GET | http://localhost:8080/api/users/{userId}/deals?state=underway |
 | 查看所有结束的交易| GET | http://localhost:8080/api/users/{userId}/deals?state=closure |
 
-### 8. 交易操作（txn）
+### 8. 交易操作（txn）PORT=8008
 
 **BASE_URL=http://localhost:8080/api/deals**
 
@@ -178,7 +179,7 @@
 | 查看所有尚未完成的交易 | GET | http://localhost:8080/api/deals?state=underway|
 | 查看所有结束的交易 | GET | http://localhost:8080/api/deals?state=closure |
 
-### 9. 充值信息（balance）
+### 9. 充值信息（balance）PORT=8009
 
 **BASE_URL=http://localhost:8080/api/users/{userId}/balances**
 
@@ -197,7 +198,7 @@
 | 查看用户充值信息 | GET | http://localhost:8080/api/users/{userId}/balances |
 | 查看用户某条充值信息 | GET | http://localhost:8080/api/users/{userId}/balances/{bId} |
 
-### 10. 充值（recharge）
+### 10. 充值（recharge）PORT=8010
 
 **BASE_URL=http://localhost:8080/api/balances**
 
