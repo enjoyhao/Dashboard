@@ -3,7 +3,7 @@
 ## 用例图
 
 以下为整个系统用例图一览：
-![](https://github.com/money-hub/Dashboard/blob/master/%E7%94%A8%E4%BE%8B%E5%9B%BE.png)
+![](https://github.com/money-hub/Dashboard/blob/master/06-01-usecase-diagram.png?raw=true)
 
 ## 用例文本与活动图
 
