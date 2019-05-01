@@ -1,5 +1,7 @@
 # API - RESTful
 
+【注】API前标有*号的预打算删除。
+
 ## A. 用户相关
 
 ### 1. 登陆服务（authentication）PORT=8001
@@ -57,6 +59,8 @@
 
 ## B. 任务相关
 
+此系统追踪任务的创建与发布，以及查询操作。
+
 ### 4. 用户任务信息（task）PORT=8004
 
 **BASE_URL=http://localhost:8080/api/users/{userId}/tasks**
@@ -68,15 +72,12 @@
 | 查询某个用户发布的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=released | 不需要认证 |
 | 查询和自己相关的所有任务 | GET | http://localhost:8080/api/users/{userId}/tasks | userId为token中的userId |
 | 查询自己未发布的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=non-released| userId为token中的userId |
-| 查询自己接受的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=claimed | userId为token中的userId |
-| 查询自己完成的任务| GET | http://localhost:8080/api/users/{userId}/tasks?state=finished| userId为token中的userId |
 
 **管理员API：**
 
 |描述|方法|API|
 | ---------------- | ------ | ----------------------------- |
 | 查询用户发起的所有任务 | GET  | http://localhost:8080/api/users/{userId}/tasks          |
-| 查询正在进行中的任务| GET  | http://localhost:8080/api/users/{userId}/tasks?state=claimed          |
 | 查询已经完成的任务| GET  | http://localhost:8080/api/users/{userId}/tasks?state=finished          |
 | 查询已经发布但是未被领取的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=released|
 | 查询未发的任务|GET|http://localhost:8080/api/users/{userId}/tasks?state=non-released|
@@ -91,11 +92,8 @@
 | ---------------- | ------ | ----------------------------- | --------- |
 | 查询所有任务 | GET | http://localhost:8080/api/tasks | 不需要认证 |
 | 查询某个任务 | GET | http://localhost:8080/api/tasks/{taskId} | 不需要认证 |
-| 创建任务                   | POST   | http://localhost:8080/api/tasks               | |
-| 发布任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=release | |
-| 领取任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=claim | |
-| 完成任务                   | PUT   | http://localhost:8080/api/tasks/{taskId}?action=finish |发布者和接收者都需要调用此接口来完成任务|
-| 取消领取任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=claimed | |
+| 创建任务                   | POST   | http://localhost:8080/api/tasks | 当前任务类型以问卷为主 |
+| 修改任务                 | PUT   | http://localhost:8080/api/tasks/{taskId} | |
 | 删除已完成的任务           | DELETE | http://localhost:8080/api/tasks/{taskId}?state=finished | |
 | 取消发布任务               | DELETE | http://localhost:8080/api/tasks/{taskId}?state=released | |
 | 删除未发布的任务 | DELETE | http://localhost:8080/api/tasks/{taskId}?state=non-released | |
@@ -122,8 +120,8 @@
 | ---------------- | ------ | ------------------------------------------------------------ |
 | 获取某个task的评论 | GET    | http://localhost:8080/api/tasks/{taskId}/comments   |
 | 发表评论         | POST   | http://localhost:8080/api/tasks/{taskId}/comments   |
-| *更改某条评论     | PUT    | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
-| *删除某条评论     | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
+| 更改某条评论     | PUT    | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
+| 删除某条评论     | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid} |
 | 点赞某条评论     | PUT    | http://localhost:8080/api/tasks/{taskId}/comments/{cid}/star |
 | 取消点赞某条评论 | DELETE | http://localhost:8080/api/tasks/{taskId}/comments/{cid}/star |
 
@@ -136,7 +134,7 @@
 
 ## C. 交易系统
 
-此系统是在双方共同确认完成任务之后，开始进行报酬交易。
+此系统追踪发布者接受者双方任务的进行。
 
 ### 7. 用户交易信息（deal）PORT=8007
 
