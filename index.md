@@ -12,8 +12,8 @@
 
 6、Requirement specification（需求规格说明书）
 
--  6.1 [Usecase Diagram（用例图）](用例图.png)
-- 6.2 [Use Cases（用例+活动图）](useCases.md)
+-  6.1 [Usecase Diagram（用例图）](06-01-usecase-diagram.png)
+- 6.2 [Use Cases（用例+活动图）](06-02-use-cases.md)
 - 6.3 [Domain Models（领域模型）](06-03-domain-model.md)
 - 6.4 [State Models（状态模型）](06-04-state-model.md)
 - 6.5 [System Sequence Diagrams（功能模型）](06-05-system-sequence-diagram.md)
