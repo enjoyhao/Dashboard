@@ -24,12 +24,13 @@
 **BASE_URL=http://localhost:8002/api/users/{userId}/certs**
 
 | 描述 | 方法 | API                                   |参数 | 返回类型 |
-| -------------------------- | ------ | ----------- | --- | --- | 
+| -------------------------- | ------ | ----------- | --- | --- |
 | 认证（成功之后不允许修改）   | POST   | http://localhost:8002/api/users/{userId}/certs               | User | Res{,,User} |
 |                            | GET    | http://locahost:8002/api/users/{userId}/certs                | nil | Res{,,User} |
 
 **管理员API：**
 **BASE_URL=http://localhost:8002/api/certs**
+
 | 描述 | 方法 | API   |参数 | 返回类型 |
 | ------------ | ------ | ----------------- |---  | ----- |
 | 查看所有认证信息 | GET    | http://localhost:8002/api/certs | nil | Res{,,[]User} |
@@ -60,7 +61,7 @@
 
 ## B. 任务相关
 
-此系统追踪任务的创建与发布，以及查询操作。
+此系统追踪任务的创建与发布，以及查询操作。（当查询所有任务时默认返回task简略信息，指明Id时返回详细信息）
 
 ### 4. 用户任务信息（task）PORT=8004
 
@@ -94,8 +95,8 @@
 | ---------------- | ------ | ----------------------------- | --------- | --- | --- |
 | 查询所有任务 | GET | http://localhost:8005/api/tasks | 不需要认证 | nil | Res{,,[]Task} |
 | 查询某个任务 | GET | http://localhost:8005/api/tasks/{taskId} | 不需要认证，指明任务Id时返回具体任务详情 | nil | Res{,,Qtnr} |
-| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | nil | Res{,,Qtnr} |
-| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Qtnr | Res{,,nil} |
+| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | Wrapper{"Questionnaire", Qtnr} | Res{,,Qtnr} |
+| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Wrapper{"Questionnaire", Qtnr} | Res{,,nil} |
 | 删除关闭的任务           | DELETE | http://localhost:8005/api/tasks/{taskId}?state=closed | | nil | Res{,,nil} |
 | 取消发布任务               | DELETE | http://localhost:8005/api/tasks/{taskId}?state=released | | nil | Res{,,nil} |
 | 删除未发布的任务 | DELETE | http://localhost:8005/api/tasks/{taskId}?state=non-released | | nil | Res{,,nil} |
@@ -308,6 +309,7 @@ const (
 )
 
 type Deal struct {
+    Id        string    `json:"id" xorm:"<-"`
 	TaskId    string    `json:"taskId" xorm:"taskId"`
 	Publisher string    `json:"publisher" xorm:"publisher"`
 	Recipient string    `json:"recipient" xorm:"recipient"`
@@ -318,8 +320,22 @@ type Deal struct {
 }
 ```
 
+**Comment属性表：**
+
+```go
+type Comment struct {
+	Id        string    `json:"id" xorm:"<-"`
+	TaskId    string    `json:"taskId" xorm:"taskId"`
+	UserId    string    `json:"userId" xorm:"userId"`
+	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
+	Content   string    `json:"content" xorm:"content"`
+	Stars     int       `json:"stars" xorm:"stars"`
+}
+```
+
 **Wrapper类型说明：**
 wrapper目前主要是用于前端向后端发送任务数据，其中Kind为任务类型字段，raw为具体的任务字段（可以为Qtnr等等）。
+
 ```go
 type Wrapper struct {
 	Kind string          `json:"kind"`
