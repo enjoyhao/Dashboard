@@ -1,6 +1,7 @@
 # API - RESTful
 
 【注】API前标有*号的预打算删除。
+
 【注】返回类型说明中Res{}，省略字段为通用字段，只有Data会有所变化。
 
 ## A. 用户相关
@@ -13,7 +14,7 @@
 
 | 描述 | 方法 | API     | 参数 | 返回类型 |
 | ---- | ---- | ------ | ---  | ----- |
-| 登陆 | POST | http://localhost:8001/api/auth/user   | | |
+| 登陆 | POST | http://localhost:8001/api/auth/user   | {code} | Res{,,{openid,token}} |
 |      | POST | http://localhost:8001/api/auth/admin  | Admin | Res{,,nil} |
 |      | POST | http://localhost:8001/api/auth/firm   | | |
 | 退出 | GET  | http://localhost:8001/api/auth/logout | nil | Res{,,nil} |
@@ -56,8 +57,8 @@
 | 查询所有用户     | GET    | http://localhost:8003/api/users            |nil|Res{,,[]User}|
 | 查询某个用户     | GET    | http://localhost:8003/api/users/{userId}   |nil|Res{,,User}|
 | 根据名称查询用户 | GET    | http://localhost:8003/api/users/{username} |nil|Res{,,[]User}|
-| 创建用户         | POST   | http://localhost:8003/api/users            |User|Res{,,[]User}|
-| 删除用户         | DELETE | http://localhost:8003/api/users/{userId}   |nil|Res{,,nil}|
+| *创建用户         | POST   | http://localhost:8003/api/users            |User|Res{,,[]User}|
+| *删除用户         | DELETE | http://localhost:8003/api/users/{userId}   |nil|Res{,,nil}|
 
 ## B. 任务相关
 
@@ -146,7 +147,6 @@
 | 描述 | 方法 | API | 备注 |
 | ----- | ----- | ---- | ------ |
 | 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId |
-| 查看用户某笔交易 | GET | http://localhost:8007/api/users/{userId}/deals/{dId} | userId为token中的userId |
 | 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId |
 | 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId |
 | 删除结束的交易 | DELETE | http://localhost:8007/api/users/{userId}/deals/{dId}?state=closure | userId为token中的userId |
@@ -168,6 +168,7 @@
 | 描述 | 方法 | API |
 | ----- | ------ | ------ |
 | 发起交易 | POST | http://localhost:8008/api/deals |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} |
 
 **管理员API：**
 
