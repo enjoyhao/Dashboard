@@ -131,16 +131,19 @@
 
 | 描述         | 方法   | API                                                          |
 | ------------ | ------ | ------------------------------------------------------------ |
-| 查看某个task评论     | POST   | http://localhost:8006/api/tasks/{taskId}/comments       |
+| 查看某个task评论     | GET   | http://localhost:8006/api/tasks/{taskId}/comments       |
 | 删除某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
 
 ## C. 交易系统
 
 此系统追踪发布者接受者双方任务的进行。
 
-### 7. 用户交易信息（deal）PORT=8007
+### 7. 用户交易（deal）PORT=8007
 
-**BASE_URL=http://localhost:8007/api/users/{userId}/deals**
+交易是在任务接受方接受任务之后默认发起，无需显式调用API
+
+**查询用户相关交易：BASE_URL=http://localhost:8007/api/users/{userId}/deals**
+**操作相关交易：BASE_URL=http://localhost:8007/api/deals**
 
 **用户API：**
 
@@ -149,7 +152,8 @@
 | 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId |
 | 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId |
 | 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId |
-| 删除结束的交易 | DELETE | http://localhost:8007/api/users/{userId}/deals/{dId}?state=closure | userId为token中的userId |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} |
+| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}|
 
 **管理员API：**
 
@@ -158,73 +162,42 @@
 | 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals |
 | 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway |
 | 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure |
-
-### 8. 交易操作（txn）PORT=8008
-
-**BASE_URL=http://localhost:8008/api/deals**
-
-**用户API：**
-
-| 描述 | 方法 | API |
-| ----- | ------ | ------ |
-| 发起交易 | POST | http://localhost:8008/api/deals |
-| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} |
-
-**管理员API：**
-
-| 描述 | 方法 | API |
-| ---- | ---- | ---- |
-| 查看所有交易 | GET | http://localhost:8008/api/deals |
-| 查看某个交易 | GET | http://localhost:8008/api/deals/{dId} |
-| 查看所有尚未完成的交易 | GET | http://localhost:8008/api/deals?state=underway|
-| 查看所有结束的交易 | GET | http://localhost:8008/api/deals?state=closure |
+| 查看所有交易 | GET | http://localhost:8007/api/deals |
+| 查看某个交易 | GET | http://localhost:8007/api/deals/{dId} |
+| 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway|
+| 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure |
 
 ## D. 充值系统
 
 此系统用于追踪用户充值操作以及查询余额信息等操作。
 
-### 9. 充值信息（balance）PORT=8009
+### 8. 充值信息（recharge）PORT=8008
 
-**BASE_URL=http://localhost:8009/api/users/{userId}/balances**
+**查询用户充值信息：BASE_URL=http://localhost:8008/api/users/{userId}/recharges**
+**充值操作：BASE_URL=http://localhost:8008/api/recharges**
 
 **用户APi：**
 
 | 描述 | 方法 | API |
 | ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8009/api/users/{userId}/balances |
-| 查看用户某条充值信息 | GET | http://localhost:8009/api/users/{userId}/balances/{bId} |
-| 删除用户充值信息 | DELETE | http://localhost:8009/api/users/{userId}/balances/{bId} |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
+| 账户充值 | POST | http://localhost:8008/api/recharges |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
+| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{bId} |
 
 **管理员API：**
 
 | 描述 | 方法 | API |
 | ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8009/api/users/{userId}/balances |
-| 查看用户某条充值信息 | GET | http://localhost:8009/api/users/{userId}/balances/{bId} |
-
-### 10. 充值（recharge）PORT=8010
-
-**BASE_URL=http://localhost:8010/api/balances**
-
-**用户API：**
-
-| 描述 | 方法 | API |
-| ---- | --- | ---- |
-| 账户充值 | POST | http://localhost:8010/api/balances |
-
-**管理员API：**
-
-| 描述 | 方法 | API |
-| --- | --- | --- |
-| 查询充值记录 | GET | http://localhost:8010/api/balances |
-| 查询某个充值记录 | GET | http://localhost:8010/api/balances/{bId} |
-
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
+| 查询充值记录 | GET | http://localhost:8008/api/recharges |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
 
 ## E. 商家任务审核系统
 
 商家提交任务，经过系统审核方可放置到平台上。
 
-## F. 工单系统（待定）
+## F. 工单系统/帮助台系统（待定）
 
 
 ## Z. Model 数据结构说明
@@ -325,12 +298,23 @@ type Deal struct {
 
 ```go
 type Comment struct {
-	Id        string    `json:"id" xorm:"<-"`
-	TaskId    string    `json:"taskId" xorm:"taskId"`
-	UserId    string    `json:"userId" xorm:"userId"`
+	Id         string    `json:"id" xorm:"<-"`
+	TaskId     string    `json:"taskId" xorm:"taskId"`
+	UserId     string    `json:"userId" xorm:"userId"`
+	Timestamp  time.Time `json:"timestamp" xorm:"timestamp"`
+	Content    string    `json:"content" xorm:"content"`
+	Stars      int       `json:"stars" xorm:"stars"`
+    Stargazers []string	 `json:"stargazers" xorm:"stargazers"`
+}
+```
+
+**Recharge属性表：**
+
+```go
+type Recharge struct {
+	Id 		  string 	`json:"id" xorm:"<-"`
+	Amount 	  string 	`json:"rechargeAmount" xorm:"rechargeAmount"`
 	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
-	Content   string    `json:"content" xorm:"content"`
-	Stars     int       `json:"stars" xorm:"stars"`
 }
 ```
 
