@@ -257,9 +257,10 @@ type Qtnr struct {
 }
 
 type Questionnaire struct {
-	TaskId       string         `json:"taskId" xorm:"taskId"`
-	Query        []query        `json:"query" xorm:"query"`
-	SingleChoice []singleChoice `json:"singleChoice" xorm:"singleChoice"`
+	TaskId        string          `json:"taskId" xorm:"taskId"`
+	Query         []query         `json:"query" xorm:"query"`
+	SingleChoice  []singleChoice  `json:"singleChoice" xorm:"singleChoice"`
+	MutipleChoice []mutipleChoice `json:"mutipleChoice" xorm:"mutipleChoice"`
 }
 
 type query struct {
@@ -271,6 +272,12 @@ type singleChoice struct {
 	Question string   `json:"question"`
 	Choices  []string `json:"choices"`
 	Answer   string   `json:"answer"`
+}
+
+type mutipleChoice struct {
+	Question string   `json:"question"`
+	Choices  []string `json:"choices"`
+	Answers  []string `json:"answers"`
 }
 ```
 
