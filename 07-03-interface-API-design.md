@@ -118,21 +118,21 @@
 
 **用户API：**
 
-| 描述             | 方法   | API                                                          |
-| ---------------- | ------ | ------------------------------------------------------------ |
-| 获取某个task的评论 | GET    | http://localhost:8006/api/tasks/{taskId}/comments   |
-| 发表评论         | POST   | http://localhost:8006/api/tasks/{taskId}/comments   |
-| 更改某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
-| 删除某条评论     | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
-| 点赞某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star |
-| 取消点赞某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star |
+| 描述             | 方法   | API                                                          | 参数 | 返回类型 |
+| ---------------- | ------ | ------------------------------------------------------------ | ---------------- | ---------------- |
+| 获取某个task的评论 | GET    | http://localhost:8006/api/tasks/{taskId}/comments   | nil | Res{,,[]Comment} |
+| 发表评论         | POST   | http://localhost:8006/api/tasks/{taskId}/comments   | Comment | Res{,,Comment} |
+| 更改某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | Comment | Res{,,Comment} |
+| 删除某条评论     | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | nil | Res{,,nil} |
+| 点赞某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star | nil | Res{,,nil} |
+| 取消点赞某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star | nil | Res{,,nil} |
 
 **管理员API：**
 
-| 描述         | 方法   | API                                                          |
-| ------------ | ------ | ------------------------------------------------------------ |
-| 查看某个task评论     | GET   | http://localhost:8006/api/tasks/{taskId}/comments       |
-| 删除某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
+| 描述         | 方法   | API                                                          | 参数 | 返回类型 |
+| ------------ | ------ | ------------------------------------------------------------ | ------------ | ------------ |
+| 查看某个task评论     | GET   | http://localhost:8006/api/tasks/{taskId}/comments       | nil | Res{,,[]Comment} |
+| 删除某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | nil | Res{,,nil} |
 
 ## C. 交易系统
 
@@ -140,32 +140,31 @@
 
 ### 7. 用户交易（deal）PORT=8007
 
-交易是在任务接受方接受任务之后默认发起，无需显式调用API
-
 **查询用户相关交易：BASE_URL=http://localhost:8007/api/users/{userId}/deals**
 **操作相关交易：BASE_URL=http://localhost:8007/api/deals**
 
 **用户API：**
 
-| 描述 | 方法 | API | 备注 |
-| ----- | ----- | ---- | ------ |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId |
-| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} |
-| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}|
+| 描述 | 方法 | API | 备注 | 参数 | 返回类型 |
+| ----- | ----- | ---- | ------ | ----- | ----- |
+| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId | nil | Res{,,[]Deal} |
+| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId | nil | Res{,,[]Deal} |
+| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId | nil | Res{,,[]Deal} |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} || nil | Res{,,Deal} |
+| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}|| nil | nil |
+| 接受任务 | POST | http://localhost:8007/api/deals || Deal | Res{,,Deal} |
 
 **管理员API：**
 
-| 描述 | 方法 | API |
-| ----- | ----- | ---- |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure |
-| 查看所有交易 | GET | http://localhost:8007/api/deals |
-| 查看某个交易 | GET | http://localhost:8007/api/deals/{dId} |
-| 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway|
-| 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ----- | ----- | ---- | ----- | ----- |
+| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | nil | Res{,,[]Deal} |
+| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
+| 查看某个交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,[]Deal} |
+| 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway| nil | Res{,,[]Deal} |
+| 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
 
 ## D. 充值系统
 
