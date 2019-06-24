@@ -145,24 +145,24 @@
 
 **用户API：**
 
-| 描述 | 方法 | API | 备注 | 参数 | 返回类型 |
+| 描述 | 方法 | API | 参数 | 返回类型 |
 | ----- | ----- | ---- | ------ | ----- | ----- |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId | nil | Res{,,[]Deal} |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId | nil | Res{,,[]Deal} |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId | nil | Res{,,[]Deal} |
-| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} || nil | Res{,,Deal} |
-| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}|| nil | nil |
-| 接受任务 | POST | http://localhost:8007/api/deals || Deal | Res{,,Deal} |
+| 查看用户参与的所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
+| 查看用户进行中的交易 | GET | http://localhost:8007/api/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看用户结束的交易| GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,Deal} |
+| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}| nil | nil |
+| 创建交易（接受任务） | POST | http://localhost:8007/api/deals | Deal | Res{,,Deal} |
 
 **管理员API：**
 
 | 描述 | 方法 | API | 参数 | 返回类型 |
 | ----- | ----- | ---- | ----- | ----- |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | nil | Res{,,[]Deal} |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | nil | Res{,,[]Deal} |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看用户参与的所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | nil | Res{,,[]Deal} |
+| 查看用户进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看用户结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | nil | Res{,,[]Deal} |
 | 查看所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
-| 查看某个交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,[]Deal} |
+| 查看某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,[]Deal} |
 | 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway| nil | Res{,,[]Deal} |
 | 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
 
