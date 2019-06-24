@@ -30,8 +30,8 @@
 
 8、生产规范与指南
 
-- 8.1 XX代码规范
-- 8.2 REST API设计规范
+- 8.1 [MoneyDodo代码规范](08-01-MoneyDodo代码规范.md)
+- 8.2 [REST API设计规范](08-02-REST API设计规范.md)
 - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
 - 8.4 部署说明
 
@@ -45,6 +45,7 @@ X1 meeting-records
 - [inception meeting (19/03/23)](X1-meeting-record0.md)
 - [iteration-1 meeting(19/03/31)](X1-meeting-record1.md)
 - [iteration-2 meeting(19/04/27)](X1-meeting-record2.md)
+- [iteration-3 meeting(19/05/18)](X1-meeting-record3.md)
 
 X2 [KANBAN](<https://github.com/orgs/money-hub/projects> )
 
