@@ -96,8 +96,8 @@
 | ---------------- | ------ | ----------------------------- | --------- | --- | --- |
 | 查询所有任务 | GET | http://localhost:8005/api/tasks | 不需要认证 | nil | Res{,,[]Task} |
 | 查询某个任务 | GET | http://localhost:8005/api/tasks/{taskId} | 不需要认证，指明任务Id时返回具体任务详情 | nil | Res{,,Qtnr} |
-| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | Wrapper{"Questionnaire", Qtnr} | Res{,,Qtnr} |
-| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Wrapper{"Questionnaire", Qtnr} | Res{,,nil} |
+| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | Wrapper{"questionnaire", Qtnr} | Res{,,Qtnr} |
+| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Wrapper{"questionnaire", Qtnr} | Res{,,nil} |
 | 删除关闭的任务           | DELETE | http://localhost:8005/api/tasks/{taskId}?state=closed | | nil | Res{,,nil} |
 | 取消发布任务               | DELETE | http://localhost:8005/api/tasks/{taskId}?state=released | | nil | Res{,,nil} |
 | 删除未发布的任务 | DELETE | http://localhost:8005/api/tasks/{taskId}?state=non-released | | nil | Res{,,nil} |
