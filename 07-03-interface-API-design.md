@@ -176,33 +176,49 @@
 **查询用户充值信息：BASE_URL=http://localhost:8008/api/users/{userId}/recharges**
 **充值操作：BASE_URL=http://localhost:8008/api/recharges**
 
-**用户APi：**
+**用户API：**
 
-| 描述 | 方法 | API |
-| ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
-| 账户充值 | POST | http://localhost:8008/api/recharges |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
-| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{bId} |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ---- | ---- | ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
+| 账户充值 | POST | http://localhost:8008/api/recharges | Recharge | Res{,,Recharge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
+| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,nil} |
 
 **管理员API：**
 
-| 描述 | 方法 | API |
-| ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
-| 查询充值记录 | GET | http://localhost:8008/api/recharges |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ---- | ---- | ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
+| 查询充值记录 | GET | http://localhost:8008/api/recharges | nil | Res{,,[]Recharge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
 
 ## E. 商家任务审核系统
 
 商家提交任务，经过系统审核方可放置到平台上。
 
-## F. 工单系统/帮助台系统（待定）
+**审核操作：BASE_URL=http://localhost:8009/api/reviews**
+
+**商家API：**
+
+| 描述                 | 方法 | API                                     | 参数   | 返回类型        |
+| -------------------- | ---- | --------------------------------------- | ------ | --------------- |
+| 提交审核             | POST | http://localhost:8009/api/reviews       | Review | Res{,,Review}   |
+| 查看审核结果         | GET  | http://localhost:8009/api/reviews/{rid} | nil    | Res{,,Review}   |
+| 查询当前商家所有审核 | GET  | http://localhost:8009/api/reviews       | nil    | Res{,,[]Review} |
+
+**管理员API：**
+
+| 描述         | 方法 | API                                     | 参数   | 返回类型        |
+| ------------ | ---- | --------------------------------------- | ------ | --------------- |
+| 修改审核状态 | PUT  | http://localhost:8009/api/reviews/{rid} | Review | Res{,,Review}   |
+| 查询所有审核 | GET  | http://localhost:8009/api/reviews       | nil    | Res{,,[]Review} |
 
 
 ## Z. Model 数据结构说明
 
 **Admin属性表：**
+
 ```go
 type Admin struct {
 	Name     string `json:"name"`
@@ -211,6 +227,7 @@ type Admin struct {
 ```
 
 **User属性表：**
+
 ```go
 type User struct {
 	Id                  string  `json:"id"`
@@ -228,6 +245,7 @@ type User struct {
 ```
 
 **Task元数据属性表：**
+
 ```go
 // task状态、类型约定属性
 const (
@@ -320,8 +338,20 @@ type Comment struct {
 ```go
 type Recharge struct {
 	Id 		  string 	`json:"id" xorm:"<-"`
+    UserId    string    `json:"userId" xorm:"userId"`
 	Amount 	  string 	`json:"rechargeAmount" xorm:"rechargeAmount"`
 	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
+}
+```
+
+**Review属性表：**
+
+```go
+type Review struct {
+    Id     string `json:"id" xorm:"<-"`
+    TaskId string `json:"taskId" xorm:"taskId"`
+    UserId string `json:"userId" xorm:"userId"`
+    State  string `json:"state" xorm:"state"`
 }
 ```
 
