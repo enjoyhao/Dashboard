@@ -179,7 +179,7 @@
 
 | 描述 | 方法 | API | 参数 | 返回类型 |
 | ---- | ---- | ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/charges | nil | Res{,,[]Charge} |
+| 查看用户充值信息 | GET | http://localhost:8008/api/charges | nil | Res{,,[]Charge} |
 | 账户充值 | POST | http://localhost:8008/api/charges | Charge | Res{,,Charge} |
 | 查询某个充值记录 | GET | http://localhost:8008/api/charges/{cid} | nil | Res{,,Charge} |
 | 删除充值信息 | DELETE | http://localhost:8008/api/charges/{cid} | nil | Res{,,nil} |
@@ -189,7 +189,7 @@
 | 描述 | 方法 | API | 参数 | 返回类型 |
 | ---- | ---- | ---- | ---- | ---- |
 | 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/charges | nil | Res{,,[]Charge} |
-| 查询充值记录 | GET | http://localhost:8008/api/charges | nil | Res{,,[]Charge} |
+| 查询所有充值记录 | GET | http://localhost:8008/api/charges | nil | Res{,,[]Charge} |
 | 查询某个充值记录 | GET | http://localhost:8008/api/charges/{cid} | nil | Res{,,Charge} |
 
 ## E. 商家任务审核系统
@@ -307,7 +307,7 @@ const (
 )
 
 type Deal struct {
-    Id        string    `json:"id" xorm:"<-"`
+	Id        string    `json:"id" xorm:"<-"`
 	TaskId    string    `json:"taskId" xorm:"taskId"`
 	Publisher string    `json:"publisher" xorm:"publisher"`
 	Recipient string    `json:"recipient" xorm:"recipient"`
@@ -328,7 +328,7 @@ type Comment struct {
 	Timestamp  time.Time `json:"timestamp" xorm:"timestamp"`
 	Content    string    `json:"content" xorm:"content"`
 	Stars      int       `json:"stars" xorm:"stars"`
-    Stargazers []string	 `json:"stargazers" xorm:"stargazers"`
+	Stargazers []string	 `json:"stargazers" xorm:"stargazers"`
 }
 ```
 
@@ -337,8 +337,8 @@ type Comment struct {
 ```go
 type Charge struct {
 	Id 		  string 	`json:"id" xorm:"<-"`
-    UserId    string    `json:"userId" xorm:"userId"`
-	Amount 	  string 	`json:"amount" xorm:"amount"`
+	UserId    string    `json:"userId" xorm:"userId"`
+	Amount 	  float64 	`json:"amount" xorm:"amount"`
 	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
 }
 ```
@@ -347,10 +347,10 @@ type Charge struct {
 
 ```go
 type Review struct {
-    Id     string `json:"id" xorm:"<-"`
-    TaskId string `json:"taskId" xorm:"taskId"`
-    UserId string `json:"userId" xorm:"userId"`
-    State  string `json:"state" xorm:"state"`
+	Id     string `json:"id" xorm:"<-"`
+	TaskId string `json:"taskId" xorm:"taskId"`
+	UserId string `json:"userId" xorm:"userId"`
+	State  string `json:"state" xorm:"state"`
 }
 ```
 
@@ -367,8 +367,8 @@ type Wrapper struct {
 **Res返回类型说明：**
 ```go
 type Resposne struct {
-    Status  bool        `json:"status"`
-    Errinfo string      `json:"errinfo"`
-    Data    interface{} `json:"data"`
+	Status  bool        `json:"status"`
+	Errinfo string      `json:"errinfo"`
+	Data    interface{} `json:"data"`
 }
 ```
