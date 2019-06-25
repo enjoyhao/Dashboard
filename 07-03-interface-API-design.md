@@ -146,7 +146,7 @@
 **用户API：**
 
 | 描述 | 方法 | API | 参数 | 返回类型 |
-| ----- | ----- | ---- | ------ | ----- | ----- |
+| ----- | ----- | ---- | ------ | ----- |
 | 查看用户参与的所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
 | 查看用户进行中的交易 | GET | http://localhost:8007/api/deals?state=underway | nil | Res{,,[]Deal} |
 | 查看用户结束的交易| GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
@@ -192,7 +192,7 @@
 | 查询所有充值记录 | GET | http://localhost:8008/api/charges | nil | Res{,,[]Charge} |
 | 查询某个充值记录 | GET | http://localhost:8008/api/charges/{cid} | nil | Res{,,Charge} |
 
-## E. 商家任务审核系统
+## E. 商家任务审核系统（review）PORT=8009
 
 商家提交任务，经过系统审核方可放置到平台上。
 
