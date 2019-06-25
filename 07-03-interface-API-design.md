@@ -96,8 +96,8 @@
 | ---------------- | ------ | ----------------------------- | --------- | --- | --- |
 | 查询所有任务 | GET | http://localhost:8005/api/tasks | 不需要认证 | nil | Res{,,[]Task} |
 | 查询某个任务 | GET | http://localhost:8005/api/tasks/{taskId} | 不需要认证，指明任务Id时返回具体任务详情 | nil | Res{,,Qtnr} |
-| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | Wrapper{"Questionnaire", Qtnr} | Res{,,Qtnr} |
-| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Wrapper{"Questionnaire", Qtnr} | Res{,,nil} |
+| 创建任务                   | POST   | http://localhost:8005/api/tasks | 当前任务类型以问卷为主 | Wrapper{"questionnaire", Qtnr} | Res{,,Qtnr} |
+| 修改任务                 | PUT   | http://localhost:8005/api/tasks/{taskId} | | Wrapper{"questionnaire", Qtnr} | Res{,,nil} |
 | 删除关闭的任务           | DELETE | http://localhost:8005/api/tasks/{taskId}?state=closed | | nil | Res{,,nil} |
 | 取消发布任务               | DELETE | http://localhost:8005/api/tasks/{taskId}?state=released | | nil | Res{,,nil} |
 | 删除未发布的任务 | DELETE | http://localhost:8005/api/tasks/{taskId}?state=non-released | | nil | Res{,,nil} |
@@ -118,21 +118,21 @@
 
 **用户API：**
 
-| 描述             | 方法   | API                                                          |
-| ---------------- | ------ | ------------------------------------------------------------ |
-| 获取某个task的评论 | GET    | http://localhost:8006/api/tasks/{taskId}/comments   |
-| 发表评论         | POST   | http://localhost:8006/api/tasks/{taskId}/comments   |
-| 更改某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
-| 删除某条评论     | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
-| 点赞某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star |
-| 取消点赞某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star |
+| 描述             | 方法   | API                                                          | 参数 | 返回类型 |
+| ---------------- | ------ | ------------------------------------------------------------ | ---------------- | ---------------- |
+| 获取某个task的评论 | GET    | http://localhost:8006/api/tasks/{taskId}/comments   | nil | Res{,,[]Comment} |
+| 发表评论         | POST   | http://localhost:8006/api/tasks/{taskId}/comments   | Comment | Res{,,Comment} |
+| 更改某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | Comment | Res{,,Comment} |
+| 删除某条评论     | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | nil | Res{,,nil} |
+| 点赞某条评论     | PUT    | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star | nil | Res{,,nil} |
+| 取消点赞某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid}/star | nil | Res{,,nil} |
 
 **管理员API：**
 
-| 描述         | 方法   | API                                                          |
-| ------------ | ------ | ------------------------------------------------------------ |
-| 查看某个task评论     | GET   | http://localhost:8006/api/tasks/{taskId}/comments       |
-| 删除某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} |
+| 描述         | 方法   | API                                                          | 参数 | 返回类型 |
+| ------------ | ------ | ------------------------------------------------------------ | ------------ | ------------ |
+| 查看某个task评论     | GET   | http://localhost:8006/api/tasks/{taskId}/comments       | nil | Res{,,[]Comment} |
+| 删除某条评论 | DELETE | http://localhost:8006/api/tasks/{taskId}/comments/{cid} | nil | Res{,,nil} |
 
 ## C. 交易系统
 
@@ -140,32 +140,31 @@
 
 ### 7. 用户交易（deal）PORT=8007
 
-交易是在任务接受方接受任务之后默认发起，无需显式调用API
-
 **查询用户相关交易：BASE_URL=http://localhost:8007/api/users/{userId}/deals**
 **操作相关交易：BASE_URL=http://localhost:8007/api/deals**
 
 **用户API：**
 
-| 描述 | 方法 | API | 备注 |
-| ----- | ----- | ---- | ------ |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | userId为token中的userId |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | userId为token中的userId |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | userId为token中的userId |
-| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} |
-| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}|
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ----- | ----- | ---- | ------ | ----- | ----- |
+| 查看用户参与的所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
+| 查看用户进行中的交易 | GET | http://localhost:8007/api/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看用户结束的交易| GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,Deal} |
+| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}| nil | nil |
+| 创建交易（接受任务） | POST | http://localhost:8007/api/deals | Deal | Res{,,Deal} |
 
 **管理员API：**
 
-| 描述 | 方法 | API |
-| ----- | ----- | ---- |
-| 查看用户相关所有交易 | GET | http://localhost:8007/api/users/{userId}/deals |
-| 查看正在进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway |
-| 查看所有结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure |
-| 查看所有交易 | GET | http://localhost:8007/api/deals |
-| 查看某个交易 | GET | http://localhost:8007/api/deals/{dId} |
-| 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway|
-| 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ----- | ----- | ---- | ----- | ----- |
+| 查看用户参与的所有交易 | GET | http://localhost:8007/api/users/{userId}/deals | nil | Res{,,[]Deal} |
+| 查看用户进行中的交易 | GET | http://localhost:8007/api/users/{userId}/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看用户结束的交易| GET | http://localhost:8007/api/users/{userId}/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
+| 查看某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,[]Deal} |
+| 查看所有尚未完成的交易 | GET | http://localhost:8007/api/deals?state=underway| nil | Res{,,[]Deal} |
+| 查看所有结束的交易 | GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
 
 ## D. 充值系统
 
@@ -176,33 +175,49 @@
 **查询用户充值信息：BASE_URL=http://localhost:8008/api/users/{userId}/recharges**
 **充值操作：BASE_URL=http://localhost:8008/api/recharges**
 
-**用户APi：**
+**用户API：**
 
-| 描述 | 方法 | API |
-| ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
-| 账户充值 | POST | http://localhost:8008/api/recharges |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
-| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{bId} |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ---- | ---- | ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
+| 账户充值 | POST | http://localhost:8008/api/recharges | Recharge | Res{,,Recharge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
+| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,nil} |
 
 **管理员API：**
 
-| 描述 | 方法 | API |
-| ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges |
-| 查询充值记录 | GET | http://localhost:8008/api/recharges |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{bId} |
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ---- | ---- | ---- | ---- | ---- |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
+| 查询充值记录 | GET | http://localhost:8008/api/recharges | nil | Res{,,[]Recharge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
 
 ## E. 商家任务审核系统
 
 商家提交任务，经过系统审核方可放置到平台上。
 
-## F. 工单系统/帮助台系统（待定）
+**审核操作：BASE_URL=http://localhost:8009/api/reviews**
+
+**商家API：**
+
+| 描述                 | 方法 | API                                     | 参数   | 返回类型        |
+| -------------------- | ---- | --------------------------------------- | ------ | --------------- |
+| 提交审核             | POST | http://localhost:8009/api/reviews       | Review | Res{,,Review}   |
+| 查看审核结果         | GET  | http://localhost:8009/api/reviews/{rid} | nil    | Res{,,Review}   |
+| 查询当前商家所有审核 | GET  | http://localhost:8009/api/reviews       | nil    | Res{,,[]Review} |
+
+**管理员API：**
+
+| 描述         | 方法 | API                                     | 参数   | 返回类型        |
+| ------------ | ---- | --------------------------------------- | ------ | --------------- |
+| 修改审核状态 | PUT  | http://localhost:8009/api/reviews/{rid} | Review | Res{,,Review}   |
+| 查询所有审核 | GET  | http://localhost:8009/api/reviews       | nil    | Res{,,[]Review} |
 
 
 ## Z. Model 数据结构说明
 
 **Admin属性表：**
+
 ```go
 type Admin struct {
 	Name     string `json:"name"`
@@ -211,6 +226,7 @@ type Admin struct {
 ```
 
 **User属性表：**
+
 ```go
 type User struct {
 	Id                  string  `json:"id"`
@@ -228,6 +244,7 @@ type User struct {
 ```
 
 **Task元数据属性表：**
+
 ```go
 // task状态、类型约定属性
 const (
@@ -320,8 +337,20 @@ type Comment struct {
 ```go
 type Recharge struct {
 	Id 		  string 	`json:"id" xorm:"<-"`
+    UserId    string    `json:"userId" xorm:"userId"`
 	Amount 	  string 	`json:"rechargeAmount" xorm:"rechargeAmount"`
 	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
+}
+```
+
+**Review属性表：**
+
+```go
+type Review struct {
+    Id     string `json:"id" xorm:"<-"`
+    TaskId string `json:"taskId" xorm:"taskId"`
+    UserId string `json:"userId" xorm:"userId"`
+    State  string `json:"state" xorm:"state"`
 }
 ```
 
