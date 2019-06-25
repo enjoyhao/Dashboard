@@ -170,27 +170,27 @@
 
 此系统用于追踪用户充值操作以及查询余额信息等操作。
 
-### 8. 充值信息（recharge）PORT=8008
+### 8. 充值信息（charge）PORT=8008
 
-**查询用户充值信息：BASE_URL=http://localhost:8008/api/users/{userId}/recharges**
-**充值操作：BASE_URL=http://localhost:8008/api/recharges**
+**查询用户充值信息：BASE_URL=http://localhost:8008/api/users/{userId}/charges**
+**充值操作：BASE_URL=http://localhost:8008/api/charges**
 
 **用户API：**
 
 | 描述 | 方法 | API | 参数 | 返回类型 |
 | ---- | ---- | ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
-| 账户充值 | POST | http://localhost:8008/api/recharges | Recharge | Res{,,Recharge} |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
-| 删除充值信息 | DELETE | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,nil} |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/charges | nil | Res{,,[]Charge} |
+| 账户充值 | POST | http://localhost:8008/api/charges | Charge | Res{,,Charge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/charges/{cid} | nil | Res{,,Charge} |
+| 删除充值信息 | DELETE | http://localhost:8008/api/charges/{cid} | nil | Res{,,nil} |
 
 **管理员API：**
 
 | 描述 | 方法 | API | 参数 | 返回类型 |
 | ---- | ---- | ---- | ---- | ---- |
-| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/recharges | nil | Res{,,[]Recharge} |
-| 查询充值记录 | GET | http://localhost:8008/api/recharges | nil | Res{,,[]Recharge} |
-| 查询某个充值记录 | GET | http://localhost:8008/api/recharges/{rcid} | nil | Res{,,Recharge} |
+| 查看用户充值信息 | GET | http://localhost:8008/api/users/{userId}/charges | nil | Res{,,[]Charge} |
+| 查询充值记录 | GET | http://localhost:8008/api/charges | nil | Res{,,[]Charge} |
+| 查询某个充值记录 | GET | http://localhost:8008/api/charges/{cid} | nil | Res{,,Charge} |
 
 ## E. 商家任务审核系统
 
@@ -332,13 +332,13 @@ type Comment struct {
 }
 ```
 
-**Recharge属性表：**
+**Charge属性表：**
 
 ```go
-type Recharge struct {
+type Charge struct {
 	Id 		  string 	`json:"id" xorm:"<-"`
     UserId    string    `json:"userId" xorm:"userId"`
-	Amount 	  string 	`json:"rechargeAmount" xorm:"rechargeAmount"`
+	Amount 	  string 	`json:"amount" xorm:"amount"`
 	Timestamp time.Time `json:"timestamp" xorm:"timestamp"`
 }
 ```
