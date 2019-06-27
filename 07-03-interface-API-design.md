@@ -145,15 +145,15 @@
 
 **用户API：**
 
-| 描述          | 方法     | API                                            | 参数   | 返回类型          |
-| ----------- | ------ | ---------------------------------------------- | ---- | ------------- |
-| 查看用户参与的所有交易 | GET    | http://localhost:8007/api/deals                | nil  | Res{,,[]Deal} |
-| 查看用户进行中的交易  | GET    | http://localhost:8007/api/deals?state=underway | nil  | Res{,,[]Deal} |
-| 查看用户结束的交易   | GET    | http://localhost:8007/api/deals?state=closure  | nil  | Res{,,[]Deal} |
-| 查看用户某笔交易    | GET    | http://localhost:8007/api/deals/{dId}          | nil  | Res{,,Deal}   |
-| 删除结束的交易     | DELETE | http://localhost:8007/api/deals/{dId}          | nil  | nil           |
-| 创建交易（接受任务）  | POST   | http://localhost:8007/api/deals                | Deal | Res{,,Deal}   |
-
+| 描述 | 方法 | API | 参数 | 返回类型 |
+| ----- | ----- | ---- | ------ | ----- |
+| 查看用户参与的所有交易 | GET | http://localhost:8007/api/deals | nil | Res{,,[]Deal} |
+| 查看用户进行中的交易 | GET | http://localhost:8007/api/deals?state=underway | nil | Res{,,[]Deal} |
+| 查看用户结束的交易| GET | http://localhost:8007/api/deals?state=closure | nil | Res{,,[]Deal} |
+| 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,Deal} |
+| 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}| nil | nil |
+| 创建交易（接受任务） | POST | http://localhost:8007/api/deals | Deal | Res{,,Deal} |
+| 双方确认交易完成并进行转账 | PUT | http://localhost:8007/api/deals/{did} | Deal | Res{,,Deal} |
 **管理员API：**
 
 | 描述          | 方法  | API                                                           | 参数  | 返回类型          |
@@ -303,8 +303,9 @@ type mutipleChoice struct {
 ```go
 // deal状态约定属性
 const (
-    DealStateUnderway = "underway"
-    DealStateClosure  = "closure"
+	DealStateUnderway = "underway"
+	DealStateRecConfirm = "recConfirm"
+    DealStatePubConfirm = "pubConfirm"
 )
 
 type Deal struct {
