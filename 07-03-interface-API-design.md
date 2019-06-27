@@ -256,6 +256,7 @@ const (
 type Task struct {
     Id        string    `json:"id" xorm:"<-"`
     Kind      string    `json:"kind"`
+    Title     string    `json:"title"`
     Publisher string    `json:"publisher"`
     Restrain  string    `json:"restrain"`
     Pubdate   time.Time `json:"pubdate"`
@@ -348,10 +349,16 @@ type Charge struct {
 **Review属性表：**
 
 ```go
+const (
+	ReviewStatePassed   = "passed"
+	ReviewStateFailed   = "failed"
+	ReviewStateUnderway = "underway"
+)
+
 type Review struct {
     Id     string `json:"id" xorm:"<-"`
     TaskId string `json:"taskId" xorm:"taskId"`
-    UserId string `json:"userId" xorm:"userId"`
+    Name   string `json:"name" xorm:"name"`
     State  string `json:"state" xorm:"state"`
 }
 ```

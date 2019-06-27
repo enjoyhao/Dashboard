@@ -18,7 +18,28 @@ MoneyDodo小程序要求基础库版本为2.6.1以上。小程序部署相对比
 
   开发并调试完成后，可通过微信开发者工具上传代码，上传代码后登录小程序后台管理页面提交审核，审核通过后即可发布。在审核通过之前也可以先通过体验版进行真机测试。
 
-## 2. 后台服务器部署
+## 2. web项目
+
+项目地址：[传送门](https://github.com/money-hub/MoneyDodo.web.git)
+
+### Build Setup
+
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
+```
+
+## 3. 后台服务器部署
 
 ### shell脚本部署服务器：
 
