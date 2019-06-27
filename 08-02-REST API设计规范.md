@@ -71,11 +71,11 @@ DELETE（DELETE）：从服务器删除资源。
 例如：
 
 ```
-GET 	https://api.moneydodo.com/v1/users   
-DELETE 	https://api.moneydodo.com/v1/users/1
-POST 	https://api.moneydodo.com/v1/tasks   
-PUT 	https://api.moneydodo.com/v1/tasks/12
-PATCH 	https://api.moneydodo.com/v1/users/32
+GET     https://api.moneydodo.com/v1/users   
+DELETE     https://api.moneydodo.com/v1/users/1
+POST     https://api.moneydodo.com/v1/tasks   
+PUT     https://api.moneydodo.com/v1/tasks/12
+PATCH     https://api.moneydodo.com/v1/users/32
 ```
 
 还有两个动词：**HEAD：**获取资源的元数据、**OPTIONS：**获取信息，关于资源的哪些属性是客户端可以改变的
