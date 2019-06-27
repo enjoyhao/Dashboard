@@ -21,14 +21,14 @@
 
 7、Design（设计说明书）
 
-- 7.1 UI design（界面设计）
+- 7.1 [UI design（界面设计）](07-01-ui-design.md)
 - 7.2 Database design（数据库设计）
-  - 7.2.1 [用户及权限系统数据库设计](07-02-01-database-design.md)
+  - 7.2.1 [用户及权限系统数据库设计](07-02-01-用户及权限系统数据库设计.md)
   - 7.2.2 [交易子系统数据库设计](07-02-02-交易子系统数据库设计.md)
   - 7.2.3 [任务子系统数据库设计](07-02-03-任务子系统数据库设计.md)
 - 7.3 [Interface API design（接口API设计）](07-03-interface-API-design.md)
-- 7.4 Architecture design（架构设计）
-- 7.5 [Usecase Design（用例设计）](usecase-design.md)
+- 7.4 [Architecture design（架构设计）](07-04-software-architecture-document.md)
+- 7.5 [Usecase Design（用例设计）](07-05-usecase-design.md)
 
 8、生产规范与指南
 
