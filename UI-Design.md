@@ -45,7 +45,7 @@
 
 3. 查看注册用户
 
-![](./iamges/web/web-ums-view.png)
+![](./images/web/web-ums-view.png)
 
 4. 用户认证审核
 
