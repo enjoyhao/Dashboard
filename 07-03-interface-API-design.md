@@ -153,6 +153,7 @@
 | 查看用户某笔交易 | GET | http://localhost:8007/api/deals/{dId} | nil | Res{,,Deal} |
 | 删除结束的交易 | DELETE | http://localhost:8007/api/deals/{dId}| nil | nil |
 | 创建交易（接受任务） | POST | http://localhost:8007/api/deals | Deal | Res{,,Deal} |
+| 双方确认交易完成并进行转账 | PUT | http://localhost:8007/api/deals/{did} | Deal | Res{,,Deal} |
 
 **管理员API：**
 
@@ -303,7 +304,8 @@ type mutipleChoice struct {
 // deal状态约定属性
 const (
 	DealStateUnderway = "underway"
-	DealStateClosure  = "closure"
+	DealStateRecConfirm = "recConfirm"
+    DealStatePubConfirm = "pubConfirm"
 )
 
 type Deal struct {
