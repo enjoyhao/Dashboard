@@ -34,7 +34,7 @@
 
 - 8.1 [MoneyDodo代码规范](08-01-MoneyDodo代码规范.md)
 - 8.2 [REST API设计规范](08-02-REST API设计规范.md)
-- 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
+- 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](08-03-architecture-BCE.md)
 - 8.4 [部署说明](08-04-deployment-guidance.md)
 
 9、成品展示
