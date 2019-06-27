@@ -1,5 +1,3 @@
-
-
 # 部署指南
 
 ## 1. 微信小程序部署
@@ -20,3 +18,109 @@ MoneyDodo小程序要求基础库版本为2.6.1以上。小程序部署相对比
 
   开发并调试完成后，可通过微信开发者工具上传代码，上传代码后登录小程序后台管理页面提交审核，审核通过后即可发布。在审核通过之前也可以先通过体验版进行真机测试。
 
+## 2. 后台服务器部署
+
+### shell脚本部署服务器：
+
+- 克隆代码
+
+  ```bash
+  $ git clone https://github.com/money-hub/MoneyDodo.service.git
+  ```
+
+- 编写**startup.sh：**启动服务
+
+  ```bash
+  echo 'starting root server...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/main.log
+  go run main.go >> ./log/main.log 2>&1 &
+  sleep 2
+  echo 'starting service auth...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/auth.log
+  go run authentication/cmd/main.go >> ./log/auth.log 2>&1 &
+  sleep 2
+  echo 'starting service certify...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/certify.log
+  go run certify/cmd/main.go >> ./log/certify.log 2>&1 &
+  sleep 2
+  echo 'starting service comment...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/comment.log
+  go run comment/cmd/main.go >> ./log/comment.log 2>&1 &
+  sleep 2
+  echo 'starting service cpt...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/cpt.log
+  go run cpt/cmd/main.go >> ./log/cpt.log 2>&1 &
+  sleep 2
+  echo 'starting service task...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/task.log
+  go run task/cmd/main.go >> ./log/task.log 2>&1 &
+  sleep 2
+  echo 'starting service user...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/user.log
+  go run user/cmd/main.go >> ./log/user.log 2>&1 &
+  sleep 2
+  echo 'starting service charge...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/charge.log
+  go run charge/cmd/main.go >> ./log/charge.log 2>&1 &
+  sleep 2
+  echo 'starting service review...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/review.log
+  go run review/cmd/main.go >> ./log/review.log 2>&1 &
+  sleep 2
+  echo 'starting service deal...'
+  echo -e '\n\n\n\n\n\n----------------------------------------\n' >> ./log/deal.log
+  go run deal/cmd/main.go >> ./log/deal.log 2>&1 &
+  sleep 2
+  echo 'done...'
+  ```
+
+- 编写**stop.sh：**停止服务
+
+  ```bash
+  echo 'stoping following process...'
+  ps -Af | grep -E '(go run)|(/tmp/go)' | grep -v 'grep'
+  PID=`ps -Af | grep -E '(go run)|(/tmp/go)' | grep -v 'grep' | awk '{print $2}'`
+  kill -9 ${PID}
+  echo 'done'
+  ```
+
+- 编写**show-status：**查看服务状态
+
+  ```bash
+  ps -Af | grep -E '(go run)|(/tmp/go)' | grep -v 'grep'
+  ```
+
+### docker容器部署
+
+- **dockerfile**编写：
+
+  ```dockerfile
+  #dockerfiles/auth.dockerfile
+  #源镜像
+  FROM golang:1.12
+  #设置镜像工作目录
+  WORKDIR $GOPATH/src/github.com/money-hub/MoneyDodo.service
+  #将宿主机的go工程代码加入到docker容器中
+  ADD . $GOPATH/src/github.com/money-hub/MoneyDodo.service
+  # 安装依赖包
+  RUN go get ./...
+  #暴露端口
+  EXPOSE 8001
+  #最终运行docker的命令
+  ENTRYPOINT  ["go", "run", "./authentication/cmd/main.go"]
+  ```
+
+- 构建docker镜像，并运行：
+
+  ```bash
+  $ sudo docker build -f dockerfiles/auth.dockerfile -t moneydodo_auth .
+  $ sudo docker run -d -p <The IP you want to use>:8001:8001 moneydodo_auth
+  ```
+
+  其他服务如此。
+
+- docker-compose容器快速编排（实现中）：
+
+  ```bash
+  $ sudo docker-compose up -d
+  ```
