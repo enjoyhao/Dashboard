@@ -37,10 +37,7 @@
 - 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](08-03-architecture-BCE.md)
 - 8.4 [部署说明](08-04-deployment-guidance.md)
 
-9、成品展示
-
-- 9.1 XX短视频
-- 9.2 XX短视频
+9、[成品展示](效果演示.md)
 
 X1 meeting-records
 
