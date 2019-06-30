@@ -6,7 +6,7 @@ PSP阶段	耗时(h)
 
 计划	8
 - 估计任务时间	8
-- 
+
 开发	101
 - 分析需求	12
 - 生成设计文档	12
@@ -23,4 +23,16 @@ PSP阶段	耗时(h)
 事后总结，提出过程改进计划	4
 合计	122
 ## Git 贡献
-Dashboard 文档集合
+- Dashboard 文档集合
+![文档贡献](../images/reportIMG/liux276_1.png)
+
+- Server 服务端贡献
+![服务端代码贡献](../images/reportIMG/liux276_2.png)
+
+## 个人博客清单
+1. [Go 并发的一些总结](https://segmentfault.com/a/1190000019582694)
+2. [JWT Token认证](https://segmentfault.com/a/1190000019582808)
+3. [Docker基础学习](https://segmentfault.com/a/1190000019623253)
+
+## 特别致谢
+小组各位同学认真参与项目，从讨论到实现都很顺利。
